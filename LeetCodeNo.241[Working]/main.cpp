@@ -56,6 +56,7 @@ string integerVectorToString(vector<int> list, int length = -1) {
 }
 
 int main() {
+    cout << "Nameless shit" << endl;
     string line;
     while (getline(cin, line)) {
         string input = stringToString(line);
