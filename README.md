@@ -1,2 +1,2 @@
 # MyLeetCodeSolutions
-To practice my coding ability. 
+To enhance my coding ability. 
