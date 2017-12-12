@@ -7,7 +7,6 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         // Think about Tetris, exam line by line
-        
         int ret = 0;
 
         if(height.size() < 3) {
