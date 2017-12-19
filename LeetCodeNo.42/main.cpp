@@ -1,3 +1,11 @@
+/*
+------------------------------------------
+Think like this (column by column), the depth of every pool is decided by both the higest point of its left edge and the highest point of its right edge.
+Which means I need to find the highest_left and highest_right to decide how much water this pool can hold.
+Remember this, the water trapped is decided by min(highest_right, highest_left)
+------------------------------------------
+*/
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -14,20 +22,13 @@ public:
         int leftMax = 0, rightMax = 0;
 
         while(pLeft < pRight) {
-            //
-            if(leftMax < height[pLeft]) {
-                leftMax = height[pLeft];
+            if(height[pLeft] < height[pRight]) {    // assume right side is higher
+                ((leftMax < height[pLeft]) ? (leftMax=height[pLeft]):(ret += leftMax - height[pLeft]));
+                pLeft++;
             } else {
-                ret += leftMax - height[pLeft];
+                ((rightMax < height[pRight]) ? (rightMax=height[pRight]):(ret += rightMax - height[pRight]));
+                pRight --;
             }
-            if(rightMax < height[pRight]) {
-                rightMax = height[pRight];
-            } else {
-                ret += rightMax - height[pRight];
-            }
-
-            pLeft ++;
-            pRight --;
         }
 
         return ret;
