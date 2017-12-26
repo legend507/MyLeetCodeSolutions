@@ -11,6 +11,7 @@ using namespace std;
 class Solution {
 public:
      int longestValidParentheses(string s) {
+        bool isContuinue = false;
         int maxans = 0;
         vector<int> maxansArray;        
         int ret = 0;
@@ -22,8 +23,18 @@ public:
                 maxans = 0;
             } else {
                 if(!array.empty()) {
-                    maxans = max(maxans, i - array.top()+1);
+                    if(isContuinue) {
+                        maxans += (i - array.top()+1);
+                    } else {
+                        maxans = max(maxans, i - array.top()+1);                        
+                    }
                     array.pop();
+                }
+                if(s[i+1] == '(') {
+                    // in case of ")("
+                    isContuinue = true;
+                } else {
+                    isContuinue = false;
                 }
             }
         }
