@@ -13,6 +13,10 @@
         "map": "cpp",
         "initializer_list": "cpp",
         "set": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "xlocale": "cpp",
+        "ios": "cpp",
+        "xiosbase": "cpp",
+        "ostream": "cpp"
     }
 }
