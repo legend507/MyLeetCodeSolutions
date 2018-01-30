@@ -12,20 +12,16 @@ int main() {
     m.insert(7);
     m.insert(9);
     m.insert(3);
-    m.insert(0);
+    m.insert(5);
 
-    cout << *(m.end()) << endl;
+    multiset<int>::iterator itr1 = m.end();    
+    cout << *(--itr1) << endl;
+    cout << "-----------------" << endl;
 
-    vector<int> v;
-
-    v.push_back(0);
-    v.push_back(1);
-    v.push_back(7);
-    v.push_back(9);
-    v.push_back(3);
-    v.push_back(0);
-
-    cout << *(v.end()) << endl;
+    for(multiset<int>::iterator itr2 = m.begin(); itr2 != m.end(); itr2++) {
+        cout << *(itr2) << " ";
+    }
+    cout << endl;
 
     return 0;
 }
