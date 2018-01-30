@@ -1,0 +1,2 @@
+When I have a array/vector, and the goal is to find 2 elements in it so that XXXX.
+Remember to traverse from both sides!!! ( O(n) time complexity and O(n) space complexity )

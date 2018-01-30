@@ -1,0 +1,3 @@
+# My solution is not perfect. 
+The instruction is to make the code work in a environment where only 32-bit integer can be hold.
+Using "long long " type of variable is kinda wrong...

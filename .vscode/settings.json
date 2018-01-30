@@ -1,0 +1,18 @@
+{
+    "python.pythonPath": "C:\\ProgramData\\Anaconda3\\python.exe",
+    "files.associations": {
+        "algorithm": "cpp",
+        "limits": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp",
+        "deque": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "stack": "cpp",
+        "map": "cpp",
+        "initializer_list": "cpp",
+        "set": "cpp",
+        "xutility": "cpp"
+    }
+}
