@@ -17,6 +17,7 @@
         "xlocale": "cpp",
         "ios": "cpp",
         "xiosbase": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "type_traits": "cpp"
     }
 }
