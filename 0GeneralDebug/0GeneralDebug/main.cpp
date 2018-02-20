@@ -1,65 +1,114 @@
 #include    <iostream>
 #include    <queue>
 #include	<functional>
+#include	<stack>
+#include	<string>
+#include	<iostream>
+#include	<unordered_set>
 using namespace std;
 
 /*
 To build a priority queue,
 with a pointer to median
 */
-class MedianFinder {
-private:
-	// Biggest->	|secondHalf + firstHalf|	<-Smallest
-	//							pop
-	priority_queue<int> firstHalf;
-	priority_queue<int, vector<int>, greater<int> > secondHalf;
+class Solution {
 public:
-	/** initialize your data structure here. */
-	MedianFinder() {
-	}
+	vector<string> removeInvalidParentheses(string s) {
+		unordered_set<string> ret1;
 
-	void addNum(int num) {
-		// decide which to insert
-		//	1. if first insertion
-		if (firstHalf.empty() && secondHalf.empty()) {
-			firstHalf.push(num);
-		}
-		//	2. if new [the bigger num in firstHalf] > num, put num in firstHalf
-		else if (num < firstHalf.top()) {
-			firstHalf.push(num);
-		}
-		else {
-			secondHalf.push(num);
-		}
+		string oneRet;
+		stack<char> leftParenthese;
 
-		// modify first and second Half, s.t. they have equal size
-		while (
-			1 < fabs(firstHalf.size() - secondHalf.size())
-			) {
-			// if firstHalf has more num
-			if (firstHalf.size() > secondHalf.size()) {
-				secondHalf.push(firstHalf.top());
-				firstHalf.pop();
+		int leftP2Remove = 0, rightP2Remove = 0;
+		for (auto oneChar : s) {
+			// assume no ) will be found later, remove this (
+			if (oneChar == '(') {
+				leftP2Remove++;
 			}
-			// if secondHalf has more num
-			if (firstHalf.size() < secondHalf.size()) {
-				firstHalf.push(secondHalf.top());
-				secondHalf.pop();
+			// found a ), pair this ) with former (; if no former (, remove this )
+			else if (oneChar == ')') {
+				if (leftP2Remove != 0)
+					leftP2Remove--;
+				else
+					rightP2Remove++;
 			}
 		}
+
+		recurseRemove(ret1, oneRet, s, leftParenthese, leftP2Remove, rightP2Remove);
+
+		//	2nd, check all possible rets, 
+		vector<string> ret(ret1.begin(), ret1.end());
+		for (auto oneStr : ret) {
+			cout << oneStr << endl;
+		}
+
+		for (vector<string>::iterator itr = ret.begin(); itr != ret.end(); /*no itr++*/) {
+			stack<char> leftParenthesesTracker;
+
+			for (auto oneChar : (*itr)) {
+				if (oneChar == '(')
+					leftParenthesesTracker.push('(');
+				if (oneChar == ')')
+					leftParenthesesTracker.pop();
+			}
+			if (!leftParenthesesTracker.empty())
+				itr = ret.erase(itr);
+			else
+				itr++;
+		}
+
+		if (!ret.empty())
+			return ret;
+		else {
+			vector<string> empty = { "" };
+			return empty;
+		}
 	}
 
-	double findMedian() {
-		if (firstHalf.size() == secondHalf.size()) {
-			return (double)(firstHalf.top() + secondHalf.top()) / 2;
+	void recurseRemove(unordered_set<string> & ret, 
+		string oneRet, string s, 
+		stack<char> leftParenthese, 
+		int leftP2Remove, 
+		int rightP2Remove) {
+
+		// traverse the input string
+		for (int i = 0; i < s.size(); i++) {
+
+			// if not ( and not ), append
+			if (s[i] != '(' && s[i] != ')') {
+				oneRet += s[i];
+			}
+			// if (
+			else if (s[i] == '(') {
+				// 1. not put current ( into one ret
+				if(leftP2Remove > 0)
+					recurseRemove(ret, oneRet, s.substr(i + 1, s.size() - i), leftParenthese, leftP2Remove-1, rightP2Remove);
+
+				// 2. put current ( into one ret
+				leftParenthese.push(s[i]);
+				oneRet += s[i];
+			}
+			// if ) and there is former (, 
+			else if (s[i] == ')') {
+				if (leftParenthese.empty()) {
+					rightP2Remove--;
+					continue;
+				}
+
+				// 1. not put current ) in final answer
+				if(rightP2Remove > 0)
+					recurseRemove(ret, oneRet, s.substr(i + 1, s.size() - i), leftParenthese, leftP2Remove, rightP2Remove-1);
+
+				// 2. put current ) in final answer
+				leftParenthese.pop();
+				oneRet += s[i];
+			}
 		}
-		else if (firstHalf.size() > secondHalf.size()) {
-			return (double)firstHalf.top();
-		}
-		else {
-			return (double)secondHalf.top();
-		}
+
+		if(leftP2Remove ==0 && rightP2Remove==0)
+			ret.insert(oneRet);
 	}
+
 };
 
 /**
@@ -70,16 +119,17 @@ public:
 */
 
 int main() {
-	MedianFinder mf;
-	mf.addNum(1);
-	mf.addNum(2);
+	Solution sol;
 
-	cout << mf.findMedian() << endl;
+	string input = { ")(f" };
 
-	mf.addNum(3);
+	vector<string> ret;
 
-	cout << mf.findMedian() << endl;
+	ret = sol.removeInvalidParentheses(input);
 
+	for (auto oneStr : ret) {
+		cout << oneStr << endl;
+	}
 
 	system("pause");
 	return 0;
