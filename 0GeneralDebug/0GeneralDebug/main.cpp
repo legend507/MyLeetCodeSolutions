@@ -11,12 +11,12 @@
 #include	<algorithm>
 using namespace std;
 struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
+	int val;
+	TreeNode *left;
+	TreeNode *right;
 
 	// Constructor
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 ///////////////////////////////////////////////////////////////////////
 class Solution {
@@ -32,8 +32,6 @@ public:
 			for (int cIdx = 0; cIdx < colBoundary; cIdx++) {
 				if (matrix[rIdx][cIdx] == '1') {
 					maxRec = max(maxRec, findMaxArea(matrix, rIdx, cIdx));
-					if (maxRec == 12)
-						cout << rIdx << " " << cIdx << endl;
 				}
 			}
 		}
@@ -51,30 +49,32 @@ public:
 		int colBoundary = matrix[0].size();
 		int rowBoundary = matrix.size();
 
-		priority_queue<int>	zeroRow;
-		priority_queue<int>	zeroCol;
+
 
 		bool foundZero = false;
+		multiset<pair<int, int>> rowCol;
 
-		int rowPtr = 0;
-		int colPtr = 0;
-
-		for (rowPtr = rIdx; rowPtr < rowBoundary; rowPtr++) {
-			for (colPtr = cIdx; colPtr < colBoundary; colPtr++) {
+		for (int rowPtr = rIdx; rowPtr < rowBoundary; rowPtr++) {
+			for (int colPtr = cIdx; colPtr < colBoundary; colPtr++) {
 
 				// 
 				if (matrix[rowPtr][colPtr] == '0') {
-
-					if (rowPtr != rIdx)	zeroRow.push(rowPtr);
-					if (colPtr != cIdx) zeroCol.push(colPtr);
+					if (rowPtr == rIdx) {
+						rowBoundary = rowPtr;
+						continue;
+					}
+					if (colPtr == cIdx) {
+						colBoundary = colPtr;
+						continue;
+					}
+					rowCol.emplace(make_pair(rowPtr, colPtr));
 				}
 			}
 		}
 
-		int rowLen = (zeroRow.empty() ? rowBoundary : zeroRow.top()) - rIdx;
-		int colLen = (zeroCol.empty() ? colBoundary : zeroCol.top()) - cIdx;
+		int maxArea = 0;
 
-		return (rowLen * colLen);
+		return 0;
 	}
 
 
@@ -84,10 +84,10 @@ int main() {
 	Solution s;
 	/* matrix[row][col] */
 	vector<vector<char>> matrix = {
-		{'1','0','1','0','0'},
-		{'1','0','1','1','1'},
-		{'1','1','1','1','1'},
-		{'1','0','0','1','1'}
+		{ '1','0','1','0','0' },
+		{ '1','0','1','1','1' },
+		{ '1','1','1','1','1' },
+		{ '1','0','0','1','1' }
 	};
 
 	cout << s.findMaxArea(matrix, 0, 0);
