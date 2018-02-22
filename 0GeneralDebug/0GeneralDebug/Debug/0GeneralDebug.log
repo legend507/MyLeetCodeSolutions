@@ -1,2 +1,3 @@
 ﻿  main.cpp
+c:\0000\github\myleetcodesolutions\0generaldebug\0generaldebug\main.cpp(38): warning C4101: 'sol': unreferenced local variable
   0GeneralDebug.vcxproj -> C:\0000\github\MyLeetCodeSolutions\0GeneralDebug\Debug\0GeneralDebug.exe

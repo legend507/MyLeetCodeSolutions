@@ -10,6 +10,7 @@
 #include	<algorithm>
 #include    <unordered_map>
 #include	<vector>
+#include	<map>
 using namespace std;
 struct TreeNode {
 	int val;
@@ -22,112 +23,38 @@ struct TreeNode {
 ///////////////////////////////////////////////////////////////////////
 class Solution {
 public:
-	vector<int> postorderTraversal(TreeNode* root) {
-		vector<int> onePath;
-
-		if (root == NULL)
-			return onePath;
-
-
-		stack<TreeNode*> dfsStack;
-
-		dfsStack.push(root);
-
-		while(!dfsStack.empty()) {
-			TreeNode* oneNode = dfsStack.top();
-			dfsStack.pop();
-
-			onePath.push_back(oneNode->val);
-
-			// if has left child
-			if (oneNode->left != NULL) {
-				dfsStack.push(oneNode->left);
-			}
-
-			if (oneNode->right != NULL) {
-				dfsStack.push(oneNode->right);
-			}
-
+	int numDistinct(string s, string t) {
+		if (t.empty() || s.empty()) {
+			return 0;
 		}
 
-		reverse(onePath.begin(), onePath.end());
-
-		return onePath;
-	}
-
-	// find the longest path from oneEndNode to root
-	vector<int> printTheLongestPath(TreeNode* root) {
-		vector<int> onePath;
-
-		if (root == NULL)
-			return onePath;
-
-
-		priority_queue<pair<int, vector<int>>> record;
-
-		stack<TreeNode*> dfsStack;
-
-		dfsStack.push(root);
-
-		while (!dfsStack.empty()) {
-			TreeNode* oneNode = dfsStack.top();
-			dfsStack.pop();
-
-			onePath.push_back(oneNode->val);
-
-			// if has left child
-			if (oneNode->left != NULL) {
-				dfsStack.push(oneNode->left);
-			}
-
-			if (oneNode->right != NULL) {
-				dfsStack.push(oneNode->right);
-			}
-
-
-			// when reach an end node
-			if (oneNode->left == NULL && oneNode->right == NULL) {
-				record.emplace(make_pair(onePath.size(), onePath));
-				onePath.clear();
-			}
-
+		stack<int> possibleAns;
+		
+		for (int idx = 0; idx < s.size(); idx ++) {
+			if (s[idx] == t[0])
+				possibleAns.push(idx);
 		}
 
-		vector<int> ret = (record.top()).second;
+		while (!possibleAns.empty()) {
+			int idx = possibleAns.top();
+			possibleAns.pop();
 
-		reverse(ret.begin(), ret.end());
 
-		return ret;
+		}
 	}
+
+
 };
 
 int main() {
-	Solution s;
-	/* matrix[row][col] */
-	vector<vector<char>> matrix = {
-		{ '1','0','1','0','0' },
-		{ '1','0','1','1','1' },
-		{ '1','1','1','0','1' },
-		{ '1','0','0','1','1' }
-	};
-	vector<int> nums = { 100,4,200,1,3,2 };
+	Solution sol;
 
-	TreeNode root(1);
+	string s = "bccbcdcabadabddbccaddcbabbaaacdba";
+	string t = "bccbbdc";
 
-	root.left = new TreeNode(2);
-	root.left->right = new TreeNode(100);
-
-	root.right = new TreeNode(3);
-	root.right->left = new TreeNode(4);
-	root.right->right = new TreeNode(5);
-	root.right->right->right = new TreeNode(1000);
-
-	vector<int> result = s.postorderTraversal(&root);
-
-	for (auto oneElement : result)
-		cout << oneElement << endl;
-
+	cout << sol.numDistinct(s, t);
 
 	system("pause");
+
 	return 0;
 }
