@@ -24,26 +24,20 @@ struct TreeNode {
 class Solution {
 public:
 	int numDistinct(string s, string t) {
-		if (t.empty() || s.empty()) {
-			return 0;
-		}
+		/*
+		Define dp[i][j] = the # of distinct subsequences of t[0...i-1] in s[0...j-1]
+		then we have the following 4 cases:
+		1. dp[i][0] = 0
+		2. dp[0][j] = 1		<- t is empty, which is considered to be 1 subsequence
+		3. dp[i][j] = dp[i][j-1], if t[i-1] != s[j-1]
+		4. dp[i][j] = dp[i][j-1] + dp[i-1][j-1], if t[i-1] == s[j-1]
+					  ^^^^^^^^^^   ^^^^^^^^^^^^ <- t[0...i-2] in s[0...j-2], we use s[j-1] to match t[i-1]
+					  t[0...i-1] in s[0...j-2], we do NOT use s[j-1] to match t[i-1], rather we try to find another char in s[0...j-2] to match t[i-1]
+		(4th case is actually tricky, think this through!!!)
 
-		stack<int> possibleAns;
-		
-		for (int idx = 0; idx < s.size(); idx ++) {
-			if (s[idx] == t[0])
-				possibleAns.push(idx);
-		}
-
-		while (!possibleAns.empty()) {
-			int idx = possibleAns.top();
-			possibleAns.pop();
-
-
-		}
+		Based on those 4 cases, we can put up a solution.
+		*/
 	}
-
-
 };
 
 int main() {
