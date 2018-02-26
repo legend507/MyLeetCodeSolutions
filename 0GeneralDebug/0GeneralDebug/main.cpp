@@ -23,126 +23,69 @@ struct TreeNode {
 ///////////////////////////////////////////////////////////////////////
 class Solution {
 public:
-	int maxCoins_2(vector<int>& nums) {
-		int N = nums.size();
-		nums.insert(nums.begin(), 1);
-		nums.insert(nums.end(), 1);
+	// LeetCodeNo.514
+	int findRotateSteps(string ring, string key) {
+		int keyLen = key.size();
+		int ringLen = ring.size();
 
-		// rangeValues[i][j] is the maximum # of coins that can be obtained
-		// by popping balloons only in the range [i,j]
-		vector<vector<int>> rangeValues(nums.size(), vector<int>(nums.size(), 0));
+		// dp[i][j] = min action to find key[0,...,i] in ring, with pointer pointing to ring[j]
+		vector<vector<int>>	dp(keyLen, vector<int>(ringLen, INT_MAX));
 
-		// build up from shorter ranges to longer ranges
-		for (int len = 1; len <= N; ++len) {
-			for (int start = 1; start <= N - len + 1; ++start) {
-				int end = start + len - 1;
-				// calculate the max # of coins that can be obtained by
-				// popping balloons only in the range [start,end].
-				// consider all possible choices of final balloon to pop
-				int bestCoins = 0;
-				for (int final = start; final <= end; ++final) {
-					int coins = rangeValues[start][final - 1] + rangeValues[final + 1][end]; // coins from popping subranges
-					coins += nums[start - 1] * nums[final] * nums[end + 1]; // coins from final pop
-					if (coins > bestCoins) bestCoins = coins;
-				}
-				rangeValues[start][end] = bestCoins;
+		// i== 0, find key[0] ins ring
+		//	dp[0][j]	= found key[0] at ring[j], need to act dp[0][j] times
+		for (int j = 0; j < ringLen; j++) {
+			if (ring[j] == key[0]) {
+				dp[0][j] = minRotate(ring, 0, j);
 			}
 		}
-		return rangeValues[1][N];
-	}
-
-	int maxCoins(vector<int>& nums) {
-		// shoot numOfBallon times(start from 1 -> [1, 2, 3..., numOfBallon + 1]),
-		//	counting 2 ends, there are numOfBallon + 2 ballons
-		int numOfBallon = nums.size();
 
 		/*
-		1, b1, b2, b3, ..., bn, 1	<- adding 1 to both end,
-			and the valid ballon is labelled from 1 to n
+		the for loop above filled 1st row (dp[0][-])
+		the for loop below will check from dp[1][-], if found j where ring[j] == key[1],
+			check dp[0][-] again, calc the minimum steps needed
 		*/
-		nums.push_back(1);
-		nums.insert(nums.begin(), 1);
-
-		// dynamic programming matrix
-		//	dp[i][j]: the max coin if I burst bj on ith shoot
-		//	scan every column in a row, then move to next row
-		vector<vector<pair<int, unordered_set<int>>>> dp(numOfBallon+1, 
-			vector<pair<int, unordered_set<int>>>(numOfBallon+1, make_pair(0, unordered_set<int>()))
-			);
-
-		// 1st shoot - 1st row
-		for (int j = 1; j < numOfBallon + 1; j++) {
-			dp[1][j].first = nums[j - 1] * nums[j] * nums[j + 1];
-			dp[1][j].second.insert(j);
-		}
-
-		for (int i = 2; i < numOfBallon + 1; i++) {	// start from 2nd row
-			for (int j = 1; j < numOfBallon + 1; j++) {
-
-				// check fomer row
-				int maxCoin = 0;
-
-				for (int k = 1; k < numOfBallon + 1; k++) {
-					if (k == j)
-						continue;
-
-					pair<int, unordered_set<int>> oneEle = dp[i - 1][k];
-					
-					int howMuch = oneEle.first + takeShoot(oneEle.second, nums, j);
-					if (maxCoin < howMuch) {
-						maxCoin = howMuch;
-						dp[i][j] = dp[i - 1][k];
+		for (int i = 1; i < keyLen; i++) {
+			for (int j = 0; j < ringLen; j++) {
+				
+				if (ring[j] == key[i]) {
+					for (int k = 0; k < ringLen; k++) {
+						if(dp[i-1][k] != INT_MAX)	dp[i][j] = min(dp[i][j], dp[i-1][k] + minRotate(ring, k, j));
 					}
 				}
-				dp[i][j].first = maxCoin;
-				dp[i][j].second.insert(j);
-
 			}
 		}
 
-		int ret = 0;
-		int whichOne = 0;
-		for (int j = 1; j < numOfBallon + 1; j++) {
-			ret = max(ret, dp[numOfBallon][j].first);
-			if (ret == dp[numOfBallon][j].first)
-				whichOne = j;
-		}
+		int ret = INT_MAX;
+		for (auto i : dp[keyLen - 1])
+			ret = min(ret, i);
 
-		for (auto i : dp[numOfBallon][whichOne].second) {
-			cout << i << endl;
-		}
-
-		return ret;
+		return ret + key.size();
 	}
-	// calc coin earned after take shoot
-	int takeShoot(unordered_set<int> isBursted, vector<int>& nums, int target) {
 
-		// already bursted
-		if (isBursted.find(target) != isBursted.end())
-			return 0;
+	int minRotate(const string &ring, const int startPos, const int endPos) {
+		int toRight;
+		int toLeft;
+		if (endPos >= startPos) {
+			toRight = endPos - startPos;
+			toLeft = startPos + (ring.size() - endPos);
+		}
+		else {
+			// endPos < startPos
+			toLeft = startPos - endPos;
+			toRight = (ring.size() - startPos) + endPos;
+		}
 
-		isBursted.insert(target);
-		
-		int beforeTarget = target - 1;
-		int afterTarget = target + 1;
-		// find neightbor before target
-		while (isBursted.find(beforeTarget) != isBursted.end())	beforeTarget--;
-		// find neightbor after target
-		while (isBursted.find(afterTarget) != isBursted.end())	afterTarget++;
-
-		return nums[beforeTarget] * nums[target] * nums[afterTarget];
-
+		return (toRight > toLeft ? toLeft : toRight);
 	}
 };
 
 int main() {
 	Solution sol;
 
-	string s = "b";
-	string t = "b";
-	vector<int> boxes = { 2,3,7,9,1,8,2 };
+	string ring = "godding";
+	string t = "gd";
 
-	cout << sol.maxCoins_2(boxes);
+	cout << sol.findRotateSteps(ring, t);
 
 	system("pause");
 

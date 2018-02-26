@@ -9,9 +9,9 @@
 			// found a ), pair this ) with former (; if no former (, remove this )
 			else if (oneChar == ')') {
 				if (leftP2Remove != 0)
-					leftP2Remove--;
+					leftP2Remove--;		// this ) has a former ( to match with
 				else
-					rightP2Remove++;
+					rightP2Remove++;	// no former (, remove this )
 			}
 		}
 
