@@ -18,6 +18,8 @@
         "ios": "cpp",
         "xiosbase": "cpp",
         "ostream": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "xhash": "cpp",
+        "list": "cpp"
     }
 }

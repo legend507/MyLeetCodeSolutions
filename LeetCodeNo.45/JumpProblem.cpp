@@ -24,6 +24,7 @@ struct TreeNode {
 class Solution {
 public:
 // Say I'm in curPos now, if I jump to nextPos, I want to make sure that nextPos-curPos+nums[nextPos] reachs the maximum
+// I want to make sure that if I jump to i, then from i I can jump furthest
 	int jump(vector<int>& nums) {
 
 		int n = nums.size();
