@@ -1,17 +1,17 @@
 ﻿/*
-Given a sorted dictionary (array of words) of an alien language, find order of characters in the language.
-
-Examples:
-
-Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
-Output: Order of characters is 'b', 'd', 'a', 'c'
-Note that words are sorted and in the given language "baa"
-comes before "abcd", therefore 'b' is before 'a' in output.
-Similarly we can find other orders.
-
-Input:  words[] = {"caa", "aaa", "aab"}
-Output: Order of characters is 'c', 'a', 'b'
-*/
+ Given a sorted dictionary (array of words) of an alien language, find order of characters in the language.
+ 
+ Examples:
+ 
+ Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
+ Output: Order of characters is 'b', 'd', 'a', 'c'
+ Note that words are sorted and in the given language "baa"
+ comes before "abcd", therefore 'b' is before 'a' in output.
+ Similarly we can find other orders.
+ 
+ Input:  words[] = {"caa", "aaa", "aab"}
+ Output: Order of characters is 'c', 'a', 'b'
+ */
 
 #include <vector>
 #include <iostream>
@@ -23,81 +23,83 @@ Output: Order of characters is 'c', 'a', 'b'
 #include <algorithm>
 #include <functional>
 #include <iomanip>
-#include <windows.h>
+#include <stack>
 using namespace std;
 
 // A BST node
 struct node
 {
-	int data;
-	node* left, *right;
-
-	node(int x) : data(x), left(NULL), right(NULL) {}
+    int data;
+    node* left, *right;
+    
+    node(int x) : data(x), left(NULL), right(NULL) {}
 };
 
-class AlianDict {
-	/*
-	for every word in words
-		word[0] <- weight
-		for every letter in word
-			if letter already found, do nothing
-			if letter not found, record & assign weight 0
-		if next word[0] == word[0]
-			loop compare every letter, until found a different pair
-				if found, 
-	*/
-
+class Graph {
 public:
-	vector<char> guessDict(vector<string>& words) {
-		unordered_map<char, int> record;
-		vector<char> foundLetter;
-		// traverse, 2 purposes
-		//	1. record all distinguish letters
-		//	2. assign weight to initial letters of each word
-		char curInitial = NULL;
-		int curWeight = 0;
-		for (int i = 0; i < words.size(); i++) {
-			// meet a new initial
-			if (curInitial != words[i][0]) {
-				curInitial = words[i][0];
-				record[curInitial] = ++curWeight;
-				foundLetter.push_back(curInitial);
-			}
+    int v;
+    list<int> *adj;
+    
+    Graph(int v) {
+        this->v = v;
+        adj = new list<int>[v];
+    }
+    
+    void addEdge(int v, int w) {
+        adj[v].push_back(w);
+    }
+    
+    void topologicalSortUtil(int v, bool visited[], stack<int>& stack) {
+        
+    }
+    
+    void printGraph() {
+        for(int i = 0; i < v; i++) {
+            for(auto itr=adj[i].begin(); itr != adj[i].end(); itr++) {
+                cout << *itr << " " << endl;
+            }
+            cout << endl;
+        }
+    }
+    
+};
 
-			// traverse all letters in a word, assign weight=0 to a new word
-			for (int j = 1; j < words[i].size(); j++) {
-				if (record.find(words[i][j]) == record.end()) {
-					record[words[i][j]] = -1;
-				}
-			}
-		}
-
-
-
-		for (auto oneChar : record) {
-			cout << oneChar.first << "=" << oneChar.second << endl;
-		}
-
-		vector<char> ret;
-		return ret;
-	}
-
+class AlienDict {
+public:
+    void process(vector<string>& words) {
+        unordered_map<char, int> record;
+        for(auto oneWord:words) {
+            for(int i = 0; i < oneWord.size(); i++) {
+                record[oneWord[i]] = (int)oneWord[i];
+            }
+        }
+        
+        int allLetters = (int)record.size();
+        Graph g(allLetters);
+        
+        for(int i = 0; i < words.size()-1; i++) {
+            string word1 = words[i];
+            string word2 = words[i+1];
+            
+            for(int j = 0; j < min(word1.size(), word2.size()); j++) {
+                if(word1[j] != word2[j]) {
+                    cout << "adj[" << word1[j]-'a' << "]=" <<word2[j]-'a' << endl;
+                    g.addEdge(word1[j]-'a', word2[j]-'a');
+                    break;
+                }
+            }
+        }
+        g.printGraph();
+    }
 };
 
 int main() {
-	unordered_map<char, int> test;
-	test['a'] = 1;
-	cout << test['b'] << endl;	// output is 0
-
-	AlianDict	ad;
-	vector<string> words = { "wrt",
-		"wrf",
-		"er",
-		"ett",
-		"rftt" };
-
-	ad.guessDict(words);
-
-	system("pause");
-	return 0;
+    
+    vector<string> words = { "caa",
+        "aaa",
+        "aab" };
+    AlienDict ad;
+    ad.process(words);
+    
+    return 0;
 }
