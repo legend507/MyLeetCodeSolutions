@@ -1,93 +1,103 @@
-﻿#include    <iostream>
-#include    <queue>
-#include	<functional>
-#include	<stack>
-#include	<string>
-#include	<unordered_set>
-#include	<sstream>			// istringstream and ostringstream
-#include	<set>
-#include	<climits>
-#include	<algorithm>
-#include    <unordered_map>
-#include	<vector>
-#include	<map>
+﻿/*
+Given a sorted dictionary (array of words) of an alien language, find order of characters in the language.
+
+Examples:
+
+Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
+Output: Order of characters is 'b', 'd', 'a', 'c'
+Note that words are sorted and in the given language "baa"
+comes before "abcd", therefore 'b' is before 'a' in output.
+Similarly we can find other orders.
+
+Input:  words[] = {"caa", "aaa", "aab"}
+Output: Order of characters is 'c', 'a', 'b'
+*/
+
+#include <vector>
+#include <iostream>
+#include <list>
+#include <string>
+#include <unordered_map>
+#include <sstream>
+#include <queue>
+#include <algorithm>
+#include <functional>
+#include <iomanip>
+#include <windows.h>
 using namespace std;
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
 
-	// Constructor
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+// A BST node
+struct node
+{
+	int data;
+	node* left, *right;
+
+	node(int x) : data(x), left(NULL), right(NULL) {}
 };
-///////////////////////////////////////////////////////////////////////
-class Solution {
+
+class AlianDict {
+	/*
+	for every word in words
+		word[0] <- weight
+		for every letter in word
+			if letter already found, do nothing
+			if letter not found, record & assign weight 0
+		if next word[0] == word[0]
+			loop compare every letter, until found a different pair
+				if found, 
+	*/
+
 public:
-	// LeetCodeNo.514
-	int findRotateSteps(string ring, string key) {
-		int keyLen = key.size();
-		int ringLen = ring.size();
-
-		// dp[i][j] = min action to find key[0,...,i] in ring, with pointer pointing to ring[j]
-		vector<vector<int>>	dp(keyLen, vector<int>(ringLen, INT_MAX));
-
-		// i== 0, find key[0] ins ring
-		//	dp[0][j]	= found key[0] at ring[j], need to act dp[0][j] times
-		for (int j = 0; j < ringLen; j++) {
-			if (ring[j] == key[0]) {
-				dp[0][j] = minRotate(ring, 0, j);
+	vector<char> guessDict(vector<string>& words) {
+		unordered_map<char, int> record;
+		vector<char> foundLetter;
+		// traverse, 2 purposes
+		//	1. record all distinguish letters
+		//	2. assign weight to initial letters of each word
+		char curInitial = NULL;
+		int curWeight = 0;
+		for (int i = 0; i < words.size(); i++) {
+			// meet a new initial
+			if (curInitial != words[i][0]) {
+				curInitial = words[i][0];
+				record[curInitial] = ++curWeight;
+				foundLetter.push_back(curInitial);
 			}
-		}
 
-		/*
-		the for loop above filled 1st row (dp[0][-])
-		the for loop below will check from dp[1][-], if found j where ring[j] == key[1],
-			check dp[0][-] again, calc the minimum steps needed
-		*/
-		for (int i = 1; i < keyLen; i++) {
-			for (int j = 0; j < ringLen; j++) {
-				
-				if (ring[j] == key[i]) {
-					for (int k = 0; k < ringLen; k++) {
-						if(dp[i-1][k] != INT_MAX)	dp[i][j] = min(dp[i][j], dp[i-1][k] + minRotate(ring, k, j));
-					}
+			// traverse all letters in a word, assign weight=0 to a new word
+			for (int j = 1; j < words[i].size(); j++) {
+				if (record.find(words[i][j]) == record.end()) {
+					record[words[i][j]] = -1;
 				}
 			}
 		}
 
-		int ret = INT_MAX;
-		for (auto i : dp[keyLen - 1])
-			ret = min(ret, i);
 
-		return ret + key.size();
-	}
 
-	int minRotate(const string &ring, const int startPos, const int endPos) {
-		int toRight;
-		int toLeft;
-		if (endPos >= startPos) {
-			toRight = endPos - startPos;
-			toLeft = startPos + (ring.size() - endPos);
-		}
-		else {
-			// endPos < startPos
-			toLeft = startPos - endPos;
-			toRight = (ring.size() - startPos) + endPos;
+		for (auto oneChar : record) {
+			cout << oneChar.first << "=" << oneChar.second << endl;
 		}
 
-		return (toRight > toLeft ? toLeft : toRight);
+		vector<char> ret;
+		return ret;
 	}
+
 };
 
 int main() {
-	Solution sol;
+	unordered_map<char, int> test;
+	test['a'] = 1;
+	cout << test['b'] << endl;	// output is 0
 
-	string ring = "godding";
-	string t = "gd";
+	AlianDict	ad;
+	vector<string> words = { "wrt",
+		"wrf",
+		"er",
+		"ett",
+		"rftt" };
 
-	cout << sol.findRotateSteps(ring, t);
+	ad.guessDict(words);
 
 	system("pause");
-
 	return 0;
 }
