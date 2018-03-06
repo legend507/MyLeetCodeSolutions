@@ -1,16 +1,16 @@
 ﻿/*
- Given a sorted dictionary (array of words) of an alien language, find order of characters in the language.
- 
- Examples:
- 
- Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
- Output: Order of characters is 'b', 'd', 'a', 'c'
- Note that words are sorted and in the given language "baa"
- comes before "abcd", therefore 'b' is before 'a' in output.
- Similarly we can find other orders.
- 
- Input:  words[] = {"caa", "aaa", "aab"}
- Output: Order of characters is 'c', 'a', 'b'
+Given a string containing of ‘0’, ‘1’ and ‘?’ wildcard characters, generate all binary strings that can be formed by replacing each wildcard character by ‘0’ or ‘1’.
+
+Input str = "1??0?101"
+Output:
+			10000101
+			10001101
+			10100101
+			10101101
+			11000101
+			11001101
+			11100101
+			11101101
  */
 
 #include <vector>
@@ -18,6 +18,7 @@
 #include <list>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <sstream>
 #include <queue>
 #include <algorithm>
@@ -27,79 +28,57 @@
 using namespace std;
 
 // A BST node
-struct node
+//template <typename T>
+//struct TreeNode
+//{
+//    T data;
+//	TreeNode* left, *right;
+//    
+//	TreeNode(T x) : data(x), left(NULL), right(NULL) {}
+//};
+
+struct TreeNode
 {
-    int data;
-    node* left, *right;
-    
-    node(int x) : data(x), left(NULL), right(NULL) {}
+	char data;
+	TreeNode* left, *right;
+
+	TreeNode(char x) : data(x), left(NULL), right(NULL) {}
 };
 
-class Graph {
+class StringGenerator {
+	
+
 public:
-    int v;
-    list<int> *adj;
-    
-    Graph(int v) {
-        this->v = v;
-        adj = new list<int>[v];
-    }
-    
-    void addEdge(int v, int w) {
-        adj[v].push_back(w);
-    }
-    
-    void topologicalSortUtil(int v, bool visited[], stack<int>& stack) {
-        
-    }
-    
-    void printGraph() {
-        for(int i = 0; i < v; i++) {
-            for(auto itr=adj[i].begin(); itr != adj[i].end(); itr++) {
-                cout << *itr << " " << endl;
-            }
-            cout << endl;
-        }
-    }
-    
+	vector<string> recurseMethod(string str) {
+		vector<int> index;
+		for (int i = 0; i < str.size(); i++)
+			if (str[i] == '?')
+				index.push_back(i);
+
+		vector<string> ret;
+		recurseMethod(ret, index, str);
+
+		return ret;
+	}
+	void recurseMethod(vector<string>& ret, vector<int>& index, string str) {
+
+	}
 };
 
-class AlienDict {
-public:
-    void process(vector<string>& words) {
-        unordered_map<char, int> record;
-        for(auto oneWord:words) {
-            for(int i = 0; i < oneWord.size(); i++) {
-                record[oneWord[i]] = (int)oneWord[i];
-            }
-        }
-        
-        int allLetters = (int)record.size();
-        Graph g(allLetters);
-        
-        for(int i = 0; i < words.size()-1; i++) {
-            string word1 = words[i];
-            string word2 = words[i+1];
-            
-            for(int j = 0; j < min(word1.size(), word2.size()); j++) {
-                if(word1[j] != word2[j]) {
-                    cout << "adj[" << word1[j]-'a' << "]=" <<word2[j]-'a' << endl;
-                    g.addEdge(word1[j]-'a', word2[j]-'a');
-                    break;
-                }
-            }
-        }
-        g.printGraph();
-    }
-};
 
 int main() {
-    
-    vector<string> words = { "caa",
-        "aaa",
-        "aab" };
-    AlienDict ad;
-    ad.process(words);
-    
+	TreeNode *root = new TreeNode('A');
+	root->left = new TreeNode('B');
+	root->right = new TreeNode('C');
+	root->left->left = new TreeNode('D');
+	root->left->right = new TreeNode('E');
+	root->right->right = new TreeNode('B');
+	root->right->right->right = new TreeNode('E');
+	root->right->right->left = new TreeNode('D');
+
+	root->right->right->right->left = new TreeNode('S');
+
+
+	system("pause");
     return 0;
 }
