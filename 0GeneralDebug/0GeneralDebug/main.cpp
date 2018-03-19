@@ -1,123 +1,89 @@
 ﻿/*
+Given a set of time intervals in any order, 
+merge all overlapping intervals into one and output the result which should have only mutually exclusive intervals. Let the intervals be represented as pairs of integers for simplicity.
 
+For example, let the given set of intervals be {{1,3}, {2,4}, {5,7}, {6,8} }. 
+The intervals {1,3} and {2,4} overlap with each other, so they should be merged and become {1, 4}. 
+Similarly {5, 7} and {6, 8} should be merged and become {5, 8}
 */
 
-#include <vector>
 #include <iostream>
-#include <list>
+#include <vector>
 #include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <sstream>
-#include <queue>
-#include <algorithm>
-#include <functional>
-#include <iomanip>
 #include <stack>
+#include <list>
+#include <algorithm>
 using namespace std;
 
-/*
-当检索时，
-用此Class来存储两个Person之间的Path
-*/
-class PathNode {
-public:
-	int formerP;
-	int thisP;
-	PathNode(int x, int y) : formerP(x), thisP(y) {};
+template <typename T>
+struct interval {
+	T start;
+	T end;
+	// constructor
+	interval(int x, int y) : start(x), end(y) {};
+	// operator overload
+	friend ostream& operator << (ostream& stream, const interval<T>& obj) {
+		stream << "{" << obj.start << "," << obj.end << "}";
+		return stream;
+	};
+	// compare func
+	static bool compare(interval<T>& i1, interval<T>& i2) {
+		return (i1.start < i2.start);
+	}
 };
-class FindPath {
-	unordered_set<int> visited;
-	unordered_set<PathNode> toVisit;
+
+class MergeOverlapping {
 public:
-	void findShortestPath(Person& p1, Person& p2) {
-		for (auto oneFriend : p1.friendID) {
-			toVisit.emplace(PathNode(p1.pID, oneFriend));
-		}
+	/*
+	Method 1, O(n^2)
+	Easy Solution
+	比较每个interval pair，看有没有overlap
+	如果有，则merge 这个pair进入比较靠前的那个interval，消除靠后的那个interval
+	*/
+	vector<interval<int>> method1(vector<interval<int>>& input) {
+		vector<interval<int>> ret = input;	// copy input
+		int len = ret.size();
 
-		while (!toVisit.empty()) {
-			auto itr = toVisit.begin();
-			int thisP = itr->thisP;			//
+		for (int i = 0; i < len - 1; i++) {
+			for (int j = i + 1; j < len; j++) {
+				interval<int> ith = ret[i];
+				interval<int> jth = ret[j];
+				// check for overlap, 找出不可能Overlap的case，然后！一下
+				if ( !(ith.end < jth.start || ith.start > jth.end) ) {
+					// merge interval into new one
+					ret[i].start = min(ith.start, jth.start);
+					ret[i].end = max(ith.end, jth.end);
 
-			if (thisP == p2.pID) {
-				// found target
+					// modify ret vector, delte jth element
+					ret.erase(ret.begin() + j);
+					len--;
+					j--;
+				}
 			}
-
-
 		}
+		return ret;
+	}
+
+	/*
+	Method 2, O(nlogn)
+
+	*/
+	vector<interval<int>> method2(vector<interval<int>>& input) {
 
 	}
 };
 
-/*
-每个Person有自己的attribute
-以及自己的Friends List
-*/
-class Person {
-public:
-	int pID;
-	string name;
-	unordered_set<int>	friendID;
+int main(int argc, const char * argv[]) {
+	// insert code here...
+	vector<interval<int>> input = { { 1,3 },{ 2,4 },{ 5,7 },{ 6,8 } };
 
-	Person(int x, string y) : pID(x), name(y) {};
-};
+	MergeOverlapping mo;
+	vector<interval<int>> result = mo.method1(input);
 
-/*
-一个Machine来记录此Machine周围的Person
-*/
-class Machine {
-public:
-	int mID;
-	unordered_map<int, Person&> personList;
-
-	Machine(int x) : mID(x) {};
-
-	// get person address by person ID
-	Person& getPersonByID(int pID) {
-		return personList[pID];
-	}
-};
-
-/*
-用一个Server来记录所有Machine
-这个Server应该有
-	1 一个List来对应所有machine ID和Machine实体
-	2 一个List来记录所有Person，并map到那个Person所在的Machine
-注意，不一定要用Machine&, 如果某个Machine是远距离的话，用Machine IP也行
-*/
-class Server {
-public:
-	int sID;
-	// a map, mapping machindID with Machine address
-	unordered_map<int, Machine&> machineList;
-	// a map, mapping personID (unique) to Machine ID
-	unordered_map<int, int> personToMachine;
-
-	Server(int x) : sID(x) {};
-
-	// get machine address by ID
-	Machine& getMachineByID(int mID) {
-		return machineList[mID];
+	for (auto oneEle : result) {
+		cout << oneEle << ",";
 	}
 
-	// get machine ID by person on it
-	//	person is stored in machine
-	int getMachineIDByPersionID(int pID) {
-		return personToMachine[pID];
-	}
-
-	// get person address by person ID
-	Person& getPersonByID(int pID) {
-		// 1st. find the machine
-		// 2nd. fidn person
-		return getMachineByID(pID).getPersonByID(pID);
-	}
-};
-
-int main() {
-
-
-    system("pause");
-    return 0;
+	system("pause");
+	return 0;
 }
-
