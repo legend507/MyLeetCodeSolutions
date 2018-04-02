@@ -25,8 +25,8 @@ public:
             // then check if former digit is 1 or 2
             // 10 ~ 16, 20~26
             if(s[i-1] == '1' || s[i-1] == '2' && s[i] <= '6') {
-                ret = ret + ret_former;
-                ret_former = ret - ret_former;
+                ret = ret + ret_former;             // now ret <- former ret + ret_former
+                ret_former = ret - ret_former;      // now ret_former <- former ret
             } 
             // 17, 18, 19
             else {
