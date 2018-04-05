@@ -1,132 +1,76 @@
 ﻿/*
-一下Class实装 MyBST中insert func
-*/
+You are given an array A consisting of the integers −1, 0 and 1. A slice of that array is any pair of integers (P, Q) such that 0 ≤ P ≤ Q < N. Your task is to find the longest slice of A whose elements yield a non-negative sum.
 
-#include <vector>
+Write a function:
+
+int solution(vector<int> &A);
+
+that, given an array A of length N, consisting only of the values −1, 0, 1, returns the length of the longest slice of A that yields a non-negative sum. If there's no such slice, your function should return 0.
+
+For example, given A = [−1, −1, 1, −1, 1, 0, 1, −1, −1], your function should return 7, as the slice starting at the second position and ending at the eighth is the longest slice with a non-negative sum.
+
+For another example, given A = [1, 1, −1, −1, −1, −1, −1, 1, 1] your function should return 4: both the first four elements and the last four elements of array A are longest valid slices.
+
+Assume that:
+
+N is an integer within the range [2..100,000];
+each element of array A is an integer within the range [−1..1].
+Complexity:
+
+expected worst-case time complexity is O(N*log(N));
+expected worst-case space complexity is O(N), beyond input storage (not counting the storage required for input arguments).*/
+
 #include <iostream>
-#include <list>
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <sstream>
-#include <queue>
+#include <fstream>
+#include <vector>
 #include <set>
-#include <algorithm>
-#include <functional>
-#include <iomanip>
+#include <queue>
+#include <string>
 #include <stack>
+#include <unordered_set>
 using namespace std;
 
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-
-	// Constructor
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
 };
 
-class MyBST {
-	TreeNode* root;
+class Solution {
 public:
-	MyBST(): root(NULL) {}
+	int solution(vector<int> &A) {
+		// write your code in C++14 (g++ 6.2.0)
+		int size = A.size();
+		int sum = 0;
 
-	/*
-	插入新element*/
-	int insert(int element) {
-		// 插第一个node
-		if (root == NULL) {
-			root = new TreeNode(element);
-			return 0x00;
-		}
-
-		TreeNode* curRoot = root;
-		TreeNode* nextNode = curRoot;
-
-		/*
-		一下while找到一个既存node，
-		通过比较val和element的大小决定插坐还是插右*/
-		while (nextNode != NULL) {
-			curRoot = nextNode;
-			// element too small, go left
-			if (curRoot->val >= element) {
-				nextNode = curRoot->left;
+		int curMax = 0;
+		int ret = 0;
+		for (int i = 0; i < size; i++) {
+			if (sum + A[i] >= 0) {
+				curMax++;
+				sum += A[i];
 			}
-			// element big, go right
+			// A[i] must be -1
 			else {
-				nextNode = curRoot->right;
+				ret = max(ret, curMax);
+				curMax = 0;
+				sum = 0;
 			}
 		}
 
-		(curRoot->val >= element) ? curRoot->left = new TreeNode(element) : curRoot->right = new TreeNode(element);
 
-		return 0x00;
+		return max(ret, curMax);
 	}
-
-	TreeNode* returnMinNode() {
-		TreeNode* curRoot = root;
-		while (curRoot->left != NULL)	curRoot = curRoot->left;
-
-		return curRoot;
-	}
-
-	int deleteNode(int element) {
-		if (root == NULL)	return 0x01;	// error code
-
-		TreeNode* father = root;
-		TreeNode* deleteMe = root;
-		while (deleteMe != NULL) {
-
-			// element too small, go left
-			if (deleteMe->val > element) { father = deleteMe; deleteMe = deleteMe->left; }
-			// element too big, go right
-			else if (deleteMe->val < element) { father = deleteMe; deleteMe = deleteMe->right; }
-			// found deleteMe
-			else								break;
-		}
-
-		// NOT found, return error code
-		if (deleteMe == NULL)	return 0x01;
-
-		// found node to delete, check how many children it has
-		/// deleteMe has NO child
-		if (deleteMe->left == NULL && deleteMe->right == NULL) {
-			if (father->left == deleteMe)	father->left = NULL;
-			else							father->right = NULL;
-			delete deleteMe;
-		}
-		/// deleteMe has RIGHT child
-		else if (deleteMe->right != NULL) {
-
-		}
-		/// deleteMe has LEFT child
-		else if (deleteMe->left != NULL) {
-
-		}
-		/// deleteMe has BOTH child
-		else {
-
-		}
-
-		return 0x00;
-	}
-
 };
 
+int main()
+{
 
-int main() {
-	MyBST myBST;
+	vector<int> input = { 0, -1, 0, 0, 1, 0, -1, -1 };
+	Solution s;
 
-	myBST.insert(50);
-	myBST.insert(30);
-	myBST.insert(20);
-	myBST.insert(40);
-	myBST.insert(70);
-	myBST.insert(60);
-	myBST.insert(80);
-	myBST.insert(71);
-
-	myBST.deleteNode(80);
+	cout << s.solution(input);
+	
 
 	system("pause");
 	return 0;
