@@ -1,0 +1,100 @@
+4	
+Median of Two Sorted Arrays    		23.5%	Hard	
+10	
+Regular Expression Matching    		24.4%	Hard	
+17	
+Letter Combinations of a Phone Number    		37.5%	Medium	
+20	
+Valid Parentheses    		34.3%	Easy	
+22	
+Generate Parentheses    		49.4%	Medium	
+23	
+Merge k Sorted Lists    		29.4%	Hard	
+31	
+Next Permutation    		29.2%	Medium	
+42	
+Trapping Rain Water    		38.5%	Hard	
+50	
+Pow(x, n)    		26.4%	Medium	
+54	
+Spiral Matrix    		27.8%	Medium	
+56	
+Merge Intervals    		32.6%	Medium	
+66	
+Plus One    		39.9%	Easy	
+128	
+Longest Consecutive Sequence    		38.9%	Hard	
+139	
+Word Break    		32.1%	Medium	
+140	
+Word Break II    		25.0%	Hard	
+146	
+LRU Cache    		20.7%	Hard	
+155	
+Min Stack    		32.4%	Easy	
+162	
+Find Peak Element    		39.5%	Medium	
+166	
+Fraction to Recurring Decimal    		18.4%	Medium	
+173	
+Binary Search Tree Iterator    		44.3%	Medium	
+200	
+Number of Islands    		37.5%	Medium	
+208	
+Implement Trie (Prefix Tree)    		32.4%	Medium	
+214	
+Shortest Palindrome    		25.6%	Hard	
+218	
+The Skyline Problem    		29.6%	Hard	
+224	
+Basic Calculator    		29.3%	Hard	
+228	
+Summary Ranges    		33.1%	Medium	
+231	
+Power of Two    		41.0%	Easy	
+240	
+Search a 2D Matrix II    		39.2%	Medium	
+253	
+Meeting Rooms II    		39.9%	Medium	
+279	
+Perfect Squares    		38.4%	Medium	
+280	
+Wiggle Sort    		59.0%	Medium	
+289	
+Game of Life    		38.3%	Medium	
+297	
+Serialize and Deserialize Binary Tree    		35.9%	Hard	
+312	
+Burst Balloons    		44.1%	Hard	
+316	
+Remove Duplicate Letters    		30.8%	Hard	
+326	
+Power of Three    		40.9%	Easy	
+336	
+Palindrome Pairs    		27.6%	Hard	
+341	
+Flatten Nested List Iterator    		43.9%	Medium	
+345	
+Reverse Vowels of a String    		39.7%	Easy	
+374	
+Guess Number Higher or Lower    		37.3%	Easy	
+387	
+First Unique Character in a String    		47.3%	Easy	
+388	
+Longest Absolute File Path    		37.7%	Medium	
+406	
+Queue Reconstruction by Height    		56.8%	Medium	
+421	
+Maximum XOR of Two Numbers in an Array    		48.6%	Medium	
+448	
+Find All Numbers Disappeared in an Array    		51.3%	Easy	
+463	
+Island Perimeter    		58.3%	Easy	
+535	
+Encode and Decode TinyURL    		74.0%	Medium	
+657	
+Judge Route Circle    		68.7%	Easy	
+739	
+Daily Temperatures    		53.9%	Medium	
+760	
+Find Anagram Mappings    		76.6%	Easy
