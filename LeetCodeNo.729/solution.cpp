@@ -15,7 +15,7 @@ public:
   }
   
   bool book(int start, int end) {
-    if (end > start) return false;
+    if (end < start) return false;
     
     // Traverse events vector.
     for (auto & event : events) {
@@ -31,10 +31,10 @@ public:
 };
 
 int main() {
-  MyCalendar mc = MyCalendar().
+  MyCalendar mc = MyCalendar();
 
   cout << mc.book(10, 20);
-  cout << mc.book(15, 25):
+  cout << mc.book(15, 25);
   cout << mc.book(20, 30);
   return 0;
 }
