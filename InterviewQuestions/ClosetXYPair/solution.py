@@ -5,7 +5,7 @@ grid = [['X', '0', '0'],
 # List-like container with fast append and pop on either end.
 from collections import deque
 
-def bfs(grid: 'List[List[char]]') -> int:
+def wfs(grid: 'List[List[char]]') -> int:
 	n, m = len(grid), len(grid[0])
 	q, visited = deque(), set()
 	dirs = [
@@ -42,4 +42,4 @@ def bfs(grid: 'List[List[char]]') -> int:
 	# Can't reach Y.
 	return -1
 
-print(bfs(grid))
+print(wfs(grid))
