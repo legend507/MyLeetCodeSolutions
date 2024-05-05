@@ -1,3 +1,8 @@
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+
 class Solution {
 private:
     void multiplyDigits(string& num1,string& num2, vector<int>& product) {
@@ -46,3 +51,14 @@ public:
         return removeLeadingZeros(result);
     }
 };
+
+int main() {
+  string num1 = "123";
+  string num2 = "456";
+
+  Solution s;
+
+  std::cout << s.multiply(num1, num2);
+
+  return 0;
+}
