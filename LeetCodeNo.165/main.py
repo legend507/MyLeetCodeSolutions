@@ -1,5 +1,6 @@
 class Solution:
     def compareVersion(self, version1: str, version2: str) -> int:
+        # Calculate num before each '.'.
         def helper(s: str, idx: int) -> List[int]:
             num = 0
             while idx < len(s):
@@ -12,6 +13,7 @@ class Solution:
 
         i = j = 0
         while(i < len(version1) or j < len(version2)):
+            # Find decimal points in each version, calculate sum, then compare.
             v1, i = helper(version1, i)
             v2, j = helper(version2, j)
             if v1 > v2:
