@@ -1,3 +1,5 @@
+from heapq import heappush, heappop
+
 class Solution:
     def kthSmallestPrimeFraction(self, arr: List[int], k: int) -> List[int]:
         # Aka. priority queue, FIFO, ascending by default.
