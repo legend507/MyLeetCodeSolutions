@@ -28,6 +28,10 @@ class Solution:
 
 
     def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
+        # Idea:
+        # DFS, find all possible path first.
+        # For all the possible paths, find if any path covers the list,
+
         current_path = []
 
         self._DFS(root, current_path)
