@@ -22,3 +22,8 @@ To enhance my coding ability.
 # Sort a dict by key (desc order)
 poly1_dict_ordered = dict(sorted(poly1_dict.items(), key=lambda item: item[0], reverse=True))
 ```
+
+```
+# Create a matrix of m x n.
+matrix = [[-1] * n for _ in range(m)]
+```
