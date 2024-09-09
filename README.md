@@ -27,3 +27,11 @@ poly1_dict_ordered = dict(sorted(poly1_dict.items(), key=lambda item: item[0], r
 # Create a matrix of m x n.
 matrix = [[-1] * n for _ in range(m)]
 ```
+
+```
+# Dict, get the value of the max key in a dict.
+d = {'a': 100, 'b': 20, 'c': 50, 'd': 100, 'e': 80}
+print(max(d, key=d.get))
+```
+
+No.1242, multi-thread example.
