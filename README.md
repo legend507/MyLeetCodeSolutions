@@ -35,3 +35,9 @@ print(max(d, key=d.get))
 ```
 
 No.1242, multi-thread example.
+
+```
+# List, find the index of a value.
+[1,2,3].index(2) # => 1
+[1,2,3].index(4) # => ValueError
+```
