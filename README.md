@@ -41,3 +41,10 @@ No.1242, multi-thread example.
 [1,2,3].index(2) # => 1
 [1,2,3].index(4) # => ValueError
 ```
+
+```
+# Get all distinct char from a string, order them, then join them into another string.
+word_distinct_sorted = ''.join(sorted(list(set(word))))
+```
+
+Whey using Python dict, and worry about if a certain key exists or not, use `dict.get(key, default_value)`!
