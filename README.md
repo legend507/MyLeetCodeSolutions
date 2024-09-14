@@ -48,3 +48,8 @@ word_distinct_sorted = ''.join(sorted(list(set(word))))
 ```
 
 Whey using Python dict, and worry about if a certain key exists or not, use `dict.get(key, default_value)`!
+
+```
+# Generate all possible substrings from a string s.
+all_substrings = [s[i:j] for i in range(len(s)) for j in range(i+1, len(s) + 1)]
+```
