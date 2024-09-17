@@ -34,10 +34,10 @@ class Solution:
         # Initialize an array mp of size 32, where all elements are set to -1. This will store the index of the first occurrence of each prefixXOR value.
         # Initialize an integer variable longestSubstring and set it to 0.
         # Iterate through each character in the string s:
-        # Update prefixXOR by XORing it with the mask value of the current character (from characterMap).
-        # If the current prefixXOR value is not found in mp and prefixXOR is not 0:
-        # Store the current index in mp at the position corresponding to prefixXOR.
-        # Update longestSubstring by comparing it with the difference between the current index and mp[prefixXOR].
+        #   Update prefixXOR by XORing it with the mask value of the current character (from characterMap).
+        #   If the current prefixXOR value is not found in mp and prefixXOR is not 0:
+        #   Store the current index in mp at the position corresponding to prefixXOR.
+        #   Update longestSubstring by comparing it with the difference between the current index and mp[prefixXOR].
         # Return longestSubstring as the final result.
         prefixXOR = 0
         characterMap = [0] * 26
