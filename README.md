@@ -53,3 +53,10 @@ Whey using Python dict, and worry about if a certain key exists or not, use `dic
 # Generate all possible substrings from a string s.
 all_substrings = [s[i:j] for i in range(len(s)) for j in range(i+1, len(s) + 1)]
 ```
+
+```
+# Assign a var to negative inf.
+ret = float('-inf')
+```
+
+LeetCodeNo.179, how to define a customized comparison function for sort.
