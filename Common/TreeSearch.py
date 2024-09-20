@@ -25,7 +25,6 @@ def BFS(root):
             queue.append(node.right)
 
 # DFS.
-
 def DFS(node):
     if node is None:
         return

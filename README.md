@@ -60,3 +60,14 @@ ret = float('-inf')
 ```
 
 LeetCodeNo.179, how to define a customized comparison function for sort.
+
+```
+# Example of removing duplicates from a list of lists. Need to use numpy.
+# ret is the list of lists.
+np.unique(np.array(ret), axis=0).tolist()
+```
+
+```
+# Reverse a string.
+reversed_string = str[::-1]  # Reverse the string
+```
