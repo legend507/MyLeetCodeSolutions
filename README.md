@@ -71,3 +71,17 @@ np.unique(np.array(ret), axis=0).tolist()
 # Reverse a string.
 reversed_string = str[::-1]  # Reverse the string
 ```
+
+```
+# Split a string based on multiple deliminators, e.g. +, -, /.
+# Note that \ may be needed depending on what deliminiator it is.
+import re
+split_str = re.split('\+|\-|\/', str)
+```
+
+```
+# Python has math lib to calculate Greatest Common Divisor and Least Common Multiple.
+import math
+math.gcd(4, 6) # Gives 2.
+math.lcm(2, 3) # Gives 6.
+```
