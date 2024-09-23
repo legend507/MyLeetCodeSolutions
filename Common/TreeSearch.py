@@ -10,7 +10,7 @@ from collections import deque # Double ended queue.
 def BFS(root):
     if root is None:
         return
-    
+
     queue = deque([root])
 
     while queue:
