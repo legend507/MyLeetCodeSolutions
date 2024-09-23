@@ -1,3 +1,5 @@
+# City connected into province.
+
 class Solution:
     # My solution, a bit slow.
     # Thoughts: use BFS to traverse matrix.
