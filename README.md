@@ -92,3 +92,12 @@ math.lcm(2, 3) # Gives 6.
 a_char = a[a_ptr] if a_ptr >=0 else 0
 a_ptr -= 1
 ```
+
+```
+# List index.
+nodes = [i for i in range(10)]
+print(nodes[0:4]) # [0, 1, 2, 3], namely nodes[0] to nodes[3]
+print(nodes[4:9]) # [4, 5, 6, 7, 8], note that node[9] is NOT included.
+print(nodes[4:100]) # [4, 5, 6, 7, 8, 9], note not of bound index will be ignored.
+print(nodes[-1:5]) # [], noting is printed.
+```
