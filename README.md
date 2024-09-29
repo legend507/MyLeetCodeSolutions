@@ -85,3 +85,10 @@ import math
 math.gcd(4, 6) # Gives 2.
 math.lcm(2, 3) # Gives 6.
 ```
+
+```
+# Deal with index out of bound problem.
+# a is a string, this logic is in a loop. I want to assign a default value 0 when a_ptr reaches out of bound.
+a_char = a[a_ptr] if a_ptr >=0 else 0
+a_ptr -= 1
+```
