@@ -101,3 +101,21 @@ print(nodes[4:9]) # [4, 5, 6, 7, 8], note that node[9] is NOT included.
 print(nodes[4:100]) # [4, 5, 6, 7, 8, 9], note not of bound index will be ignored.
 print(nodes[-1:5]) # [], noting is printed.
 ```
+
+```
+# Python string, find start idx of all occurance of a substring.
+string = "hello world, hello again!"
+substring = "hello"
+
+matches = []
+start = 0
+
+while True:
+    start = string.find(substring, start)
+    if start == -1:
+        break
+    matches.append(start)
+    start += len(substring)
+
+print(matches)
+```
