@@ -15,6 +15,7 @@ To enhance my coding ability.
 
 ```
 # Concat all element in a list of int to string, also can specify separator.
+# Here, the str is str(), that converts int to string.
 ''.join(map(str, encoded_str))
 ```
 
@@ -118,4 +119,10 @@ while True:
     start += len(substring)
 
 print(matches)
+```
+
+```
+# Python insert into list at idx.
+# In-place insert, the memory address of nums won't change.
+nums.insert(idx, value)
 ```
