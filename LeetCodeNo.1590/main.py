@@ -22,6 +22,7 @@ class Solution:
                 if current_sub in all_possible_sub_sums:
                     return current_len
         return -1
+    
     def minSubarray(self, nums: List[int], p: int) -> int:
         n = len(nums)
         total_sum = 0
@@ -47,3 +48,13 @@ class Solution:
 
             # Calculate what we need to remove
             needed = (current_sum - target + p) % p
+
+            # If we have seen the needed remainder, we can consider this subarray
+            if needed in mod_map:
+                min_len = min(min_len, i - mod_map[needed])
+
+            # Store the current remainder and index
+            mod_map[current_sum] = i
+
+        # Step 4: Return result
+        return -1 if min_len == n else min_len
