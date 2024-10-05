@@ -126,3 +126,10 @@ print(matches)
 # In-place insert, the memory address of nums won't change.
 nums.insert(idx, value)
 ```
+
+```
+# Use Counte to count the occurance of elements. The input can be a list or a string.
+test = [1,2,3,4,1,1,1,1]
+counter = collections.Counter(test)
+print(counter) # Counter({1: 5, 2: 1, 3: 1, 4: 1})
+```
