@@ -133,3 +133,8 @@ test = [1,2,3,4,1,1,1,1]
 counter = collections.Counter(test)
 print(counter) # Counter({1: 5, 2: 1, 3: 1, 4: 1})
 ```
+```
+# Given 2 lists, monsters and coins of equal length, sort them into a list of (one_monster, one_coin) based on coin.
+monster_and_coin = sorted(zip(monsters, coins), key=lambda x: x[0])
+```
+
