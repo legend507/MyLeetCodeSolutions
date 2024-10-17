@@ -152,3 +152,9 @@ heapq.heappush(min_heap, element)
 # Pop the smallest element in the heap.
 min_element = heapq.heappop(min_heap)
 ```
+
+```python
+# String split each char.
+# num is an int, I want a list with each digit as a char.
+num_str = [i for i in str(num)]
+```
