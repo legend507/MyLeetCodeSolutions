@@ -158,3 +158,17 @@ min_element = heapq.heappop(min_heap)
 # num is an int, I want a list with each digit as a char.
 num_str = [i for i in str(num)]
 ```
+
+```python
+# Generate all subsets of a list recursively.
+nums = [1,2,3]
+all_subsets = []
+def backtrack(start, current_subset):
+    all_subsets.append(current_subset)
+    for i in range(start, len(nums)):
+        current_subset.append(nums[i])
+        backtrack(i + 1, current_subset)
+        current_subset.pop()
+
+backtrack(0, [])
+```
