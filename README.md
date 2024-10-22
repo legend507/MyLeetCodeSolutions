@@ -178,3 +178,5 @@ def generate_all_subsets(nums):
     return all_subsets
 print(generate_all_subsets(nums)) # Output: [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
 ```
+
+LeetCodeNo.2664, knight traversing chessboard problem. Note the use of `move` and `_is_valid_move`.
