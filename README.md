@@ -182,3 +182,12 @@ print(generate_all_subsets(nums)) # Output: [[], [1], [1, 2], [1, 2, 3], [1, 3],
 LeetCodeNo.2664, knight traversing chessboard problem. Note the use of `move` and `_is_valid_move`.
 
 When solving bit manipulation problems, remember `<<` and `>>` operators!
+
+```python
+# Check if a number is a prime number.
+def check_prime(x: int) -> bool:
+    for i in range(2, int(x**0.5) + 1):
+        if x % i == 0:
+            return False
+    return True
+```

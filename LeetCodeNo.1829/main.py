@@ -27,7 +27,7 @@ class Solution:
     
     def getMaximumXor(self, nums: List[int], maximumBit: int) -> List[int]:
         # Editorial sotluion.
-        
+
         prefix_xor = [0] * len(nums)
         prefix_xor[0] = nums[0]
         for i in range(1, len(nums)):
