@@ -191,3 +191,10 @@ def check_prime(x: int) -> bool:
             return False
     return True
 ```
+
+```python
+# Smart use of Counter
+from collections import Counter
+ret = Counter(a_list) # This gives a dict with key = each element in a_list, value = times of occurance.
+```
+
