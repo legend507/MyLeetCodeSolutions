@@ -198,3 +198,5 @@ from collections import Counter
 ret = Counter(a_list) # This gives a dict with key = each element in a_list, value = times of occurance.
 ```
 
+No.1730, shortest route to reach destination problem, solutions is in BFS.
+
