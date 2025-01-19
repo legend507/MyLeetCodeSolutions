@@ -56,6 +56,28 @@ all_substrings = [s[i:j] for i in range(len(s)) for j in range(i+1, len(s) + 1)]
 ```
 
 ```python
+# Count occurance of each char in a string.
+from collections import Counter
+
+def count_char_occurrences(string):
+  """Counts the occurrence of each character in a string.
+
+  Args:
+    string: The string to analyze.
+
+  Returns:
+    A dictionary where keys are characters and values are their counts.
+  """
+
+  return Counter(string)
+
+# Example usage
+string = "hello world"
+char_counts = count_char_occurrences(string)
+print(char_counts)
+```
+
+```python
 # Assign a var to negative inf.
 ret = float('-inf')
 ```
