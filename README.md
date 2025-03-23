@@ -218,6 +218,7 @@ def check_prime(x: int) -> bool:
 # Smart use of Counter
 from collections import Counter
 ret = Counter(a_list) # This gives a dict with key = each element in a_list, value = times of occurance.
+# Counter is a subclass of dict, takes O(n) to construct, but O(1) to get each individual elements.
 ```
 
 No.1730, shortest route to reach destination problem, solutions is in BFS.
