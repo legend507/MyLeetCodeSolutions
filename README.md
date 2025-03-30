@@ -53,6 +53,16 @@ Whey using Python dict, and worry about if a certain key exists or not, use `dic
 ```python
 # Generate all possible substrings from a string s.
 all_substrings = [s[i:j] for i in range(len(s)) for j in range(i+1, len(s) + 1)]
+
+# To check if to_check is subsequence of in_string
+def is_subsequence(to_check, in_string):
+    i = j = 0
+    while i < len(to_check) and j < len(in_string):
+        if to_check[i] == in_string[j]:
+            i += 1
+        j += 1
+
+    return i == len(to_check)
 ```
 
 ```python
@@ -222,4 +232,3 @@ ret = Counter(a_list) # This gives a dict with key = each element in a_list, val
 ```
 
 No.1730, shortest route to reach destination problem, solutions is in BFS.
-
